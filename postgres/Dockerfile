@@ -15,6 +15,11 @@ RUN apt-get update && \
     python3-sklearn && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+    
+ENV max_locks_per_transaction=2048
+ENV max_wal_size='8GB'
+ENV shared_buffers='10GB'
+ENV max_connections=256
 
 # Set the default command to run when starting the container
 CMD ["postgres"]
