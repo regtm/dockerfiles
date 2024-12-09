@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16  # Use the pre-built image from Docker Hub
+    container_name: pgvector_postgres
+    shm_size: 4g  # Shared memory size
+    environment:
+      - effective_cache_size=16GB
+      - work_mem=8GB
+      - maintenance_work_mem=8GB
+      - max_locks_per_transaction=2048
+      - max_wal_size=8GB
+      - shared_buffers=10GB
+      - max_connections=256
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"  # Expose PostgreSQL port
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistent storage for PostgreSQL data
+
+volumes:
+  postgres_data:
+    driver: local
+
